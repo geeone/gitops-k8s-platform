@@ -35,4 +35,14 @@ provider "flux" {
     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
     token                  = data.aws_eks_cluster_auth.this.token
   }
+
+  // Git repository for Flux (SSH)
+  git = {
+    url = "ssh://git@github.com/geeone/gitops-k8s-platform.git"
+
+    ssh = {
+      username    = "git"
+      private_key = file("${path.module}/flux-id-ed25519")
+    }
+  }
 }

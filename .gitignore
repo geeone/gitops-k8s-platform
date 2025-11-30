@@ -11,3 +11,7 @@
 !terraform.tfvars.example
 *.tfplan
 *.log
+
+# Flux / GitOps SSH keys
+flux-id-ed25519
+flux-id-ed25519.pub
