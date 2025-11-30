@@ -1,3 +1,5 @@
 # PyDev project settings
-.project
-.pydevproject
+.*project
+
+# Terraform project files
+.terraform*
