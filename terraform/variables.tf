@@ -9,3 +9,51 @@ variable "cluster_name" {
   description = "EKS cluster name"
   default     = "gitops-cluster"
 }
+
+variable "vpc_cidr" {
+  type        = string
+  description = "CIDR block for the VPC"
+  default     = "10.0.0.0/16"
+}
+
+variable "private_subnets" {
+  type        = list(string)
+  description = "Private subnets for EKS worker nodes"
+  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+}
+
+variable "public_subnets" {
+  type        = list(string)
+  description = "Public subnets for NAT/ingress"
+  default     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+}
+
+variable "eks_version" {
+  type        = string
+  description = "Kubernetes version for EKS"
+  default     = "1.33"
+}
+
+variable "node_instance_type" {
+  type        = string
+  description = "Instance type for EKS managed node group"
+  default     = "t3.small"
+}
+
+variable "node_min_size" {
+  type        = number
+  description = "Minimum number of worker nodes"
+  default     = 2
+}
+
+variable "node_max_size" {
+  type        = number
+  description = "Maximum number of worker nodes"
+  default     = 4
+}
+
+variable "node_desired_size" {
+  type        = number
+  description = "Desired number of worker nodes"
+  default     = 2
+}

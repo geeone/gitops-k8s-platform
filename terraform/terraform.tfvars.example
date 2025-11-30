@@ -1,0 +1,8 @@
+cluster_name = "gitops-cluster"
+aws_region   = "eu-central-1"
+
+node_min_size     = 2
+node_max_size     = 4
+node_desired_size = 2
+
+vpc_cidr = "10.0.0.0/16"

@@ -1,5 +1,13 @@
 # PyDev project settings
-.*project
+.project
+.pydevproject
 
-# Terraform project files
-.terraform*
+# Terraform state, cache, environment configs
+.terraform
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+!terraform.tfvars.example
+*.tfplan
+*.log
