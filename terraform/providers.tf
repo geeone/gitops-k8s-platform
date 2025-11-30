@@ -1,9 +1,9 @@
-// AWS provider configuration
+// AWS provider
 provider "aws" {
   region = var.aws_region
 }
 
-// EKS cluster info (for dynamic configuration of providers)
+// EKS cluster metadata
 data "aws_eks_cluster" "this" {
   name = module.eks.cluster_name
 }
@@ -12,14 +12,14 @@ data "aws_eks_cluster_auth" "this" {
   name = module.eks.cluster_name
 }
 
-// Kubernetes provider (for direct resource management by Helm/Flux)
+// Kubernetes provider (talks to EKS API)
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   token                  = data.aws_eks_cluster_auth.this.token
 }
 
-// Helm provider (for HelmRelease installs)
+// Helm provider (for Helm charts installs)
 provider "helm" {
   kubernetes {
     host                   = module.eks.cluster_endpoint
@@ -28,7 +28,7 @@ provider "helm" {
   }
 }
 
-// Flux provider (for GitOps bootstrap)
+// Flux provider (uses EKS + Git over SSH)
 provider "flux" {
   kubernetes = {
     host                   = module.eks.cluster_endpoint
@@ -36,7 +36,7 @@ provider "flux" {
     token                  = data.aws_eks_cluster_auth.this.token
   }
 
-  // Git repository for Flux (SSH)
+  // GitHub repo with Flux manifests
   git = {
     url = "ssh://git@github.com/geeone/gitops-k8s-platform.git"
 
