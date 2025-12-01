@@ -25,5 +25,5 @@ spec:
 
   update:
     # Path to the folder with HelmRelease for nginx
-    path: ./clusters/staging/apps/nginx-app
+    path: ./clusters/staging/apps/nginx
     strategy: Setters
