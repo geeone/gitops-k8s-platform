@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
   - helmrepository-grafana.yaml
   - helmrepository-prometheus.yaml
-  - grafana-helmrelease.yaml
-  - prometheus-helmrelease.yaml
+  - kube-prometheus-helmrelease.yaml
+  - loki-helmrelease.yaml
