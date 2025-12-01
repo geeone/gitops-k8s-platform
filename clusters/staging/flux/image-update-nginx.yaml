@@ -9,7 +9,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-
   git:
     checkout:
       ref:
@@ -22,7 +21,6 @@ spec:
         ci(flux): auto-update nginx image {{ .Updated.Images.0.OldTag }} -> {{ .Updated.Images.0.NewTag }}
     push:
       branch: main
-
   update:
     # Path to the folder with HelmRelease for nginx
     path: ./clusters/staging/apps/nginx
