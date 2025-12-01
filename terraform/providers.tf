@@ -3,7 +3,7 @@ provider "aws" {
   region = var.aws_region
 }
 
-// EKS auth data
+// EKS cluster metadata
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_name
 }

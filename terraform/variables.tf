@@ -4,10 +4,16 @@ variable "aws_region" {
   default     = "eu-central-1"
 }
 
-variable "cluster_name" {
+variable "project_name" {
   type        = string
-  description = "EKS cluster name"
-  default     = "gitops-cluster"
+  description = "Project name (Used as resources prefix)"
+  default     = "gitops-eks"
+}
+
+variable "eks_version" {
+  type        = string
+  description = "Kubernetes version for EKS"
+  default     = "1.33"
 }
 
 variable "vpc_cidr" {
@@ -26,12 +32,6 @@ variable "public_subnets" {
   type        = list(string)
   description = "Public subnets for NAT/ingress"
   default     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
-}
-
-variable "eks_version" {
-  type        = string
-  description = "Kubernetes version for EKS"
-  default     = "1.33"
 }
 
 variable "node_instance_type" {
