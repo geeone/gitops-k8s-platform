@@ -9,7 +9,7 @@
 *.tfstate.*
 *.tfvars
 !terraform.tfvars.example
-*.tfplan
+tfplan
 *.log
 
 # Flux / GitOps SSH keys
