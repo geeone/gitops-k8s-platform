@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-app
-  namespace: {{ .Values.namespace }}
   labels:
     app: nginx-app
 spec:
@@ -22,6 +21,7 @@ spec:
           ports:
             - name: http
               containerPort: 80
+              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           readinessProbe:

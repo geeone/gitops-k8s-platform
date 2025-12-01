@@ -6,6 +6,8 @@ metadata:
 spec:
   interval: 5m
   targetNamespace: nginx-app
+  install:
+    createNamespace: true
   chart:
     spec:
       chart: ./charts/nginx-app
@@ -14,11 +16,10 @@ spec:
         name: flux-system
         namespace: flux-system
   values:
-    namespace: nginx-app
     replicaCount: 1
     image:
       repository: nginx
-      tag: "1.29.3"
+      tag: "1.29.3" # {"$imagepolicy": "flux-system:nginx-patch"}
       pullPolicy: IfNotPresent
     service:
       type: ClusterIP
