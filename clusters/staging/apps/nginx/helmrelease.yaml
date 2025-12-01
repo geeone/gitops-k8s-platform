@@ -32,7 +32,7 @@ spec:
     replicaCount: 1
     image:
       repository: nginx
-      tag: "1.29.3" # {"$imagepolicy": "flux-system:nginx-patch"}
+      tag: "1.29.3" # {"$imagepolicy": "flux-system:nginx-patch:tag"}
       pullPolicy: IfNotPresent
     service:
       type: ClusterIP
