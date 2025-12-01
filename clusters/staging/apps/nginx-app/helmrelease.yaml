@@ -6,8 +6,26 @@ metadata:
 spec:
   interval: 5m
   targetNamespace: staging
+
   install:
     createNamespace: true
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+      strategy: rollback
+    failurePolicy: rollback
+    cleanupOnFail: true
+
+  rollback:
+    recreate: true
+    timeout: 5m
+    disableWait: false
+
   chart:
     spec:
       chart: ./charts/nginx-app
@@ -15,6 +33,7 @@ spec:
         kind: GitRepository
         name: flux-system
         namespace: flux-system
+
   values:
     replicaCount: 1
     image:
