@@ -57,3 +57,9 @@ variable "node_desired_size" {
   description = "Desired number of worker nodes"
   default     = 2
 }
+
+variable "grafana_admin_password" {
+  description = "Admin password for Grafana"
+  type        = string
+  sensitive   = true
+}
