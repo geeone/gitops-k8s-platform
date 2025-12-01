@@ -17,11 +17,11 @@ spec:
         name: prometheus-community
         namespace: flux-system
   values:
-	grafana:
-	  admin:
-	    existingSecret: grafana-admin
-	    userKey: admin-user
-	    passwordKey: admin-password
+    grafana:
+      admin:
+        existingSecret: grafana-admin
+        userKey: admin-user
+        passwordKey: admin-password
       service:
         type: LoadBalancer
     prometheus:
