@@ -1,0 +1,9 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: nginx
+  namespace: flux-system
+spec:
+  # Track official nginx images from Docker Hub
+  image: nginx
+  interval: 15m

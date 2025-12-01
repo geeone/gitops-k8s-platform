@@ -1,0 +1,13 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: nginx-patch
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: nginx
+    namespace: flux-system
+  policy:
+    semver:
+      # Allow only patch upgrades within 1.29.x line
+      range: "1.29.x"

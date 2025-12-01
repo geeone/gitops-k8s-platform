@@ -1,0 +1,29 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: nginx-auto-update
+  namespace: flux-system
+spec:
+  interval: 15m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: FluxCD
+        email: flux@example.com
+      messageTemplate: |-
+        ci(flux): auto-update nginx image {{ .Updated.Images.0.OldTag }} -> {{ .Updated.Images.0.NewTag }}
+    push:
+      branch: main
+
+  update:
+    # Path to the folder with HelmRelease for nginx
+    path: ./clusters/staging/apps/nginx-app
+    strategy: Setters
