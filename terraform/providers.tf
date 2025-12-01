@@ -3,20 +3,16 @@ provider "aws" {
   region = var.aws_region
 }
 
-// EKS cluster metadata
-data "aws_eks_cluster" "this" {
+// EKS auth data
+data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_name
 }
 
-data "aws_eks_cluster_auth" "this" {
-  name = module.eks.cluster_name
-}
-
-// Kubernetes provider (talks to EKS API)
+// Kubernetes provider (talks to the EKS API server)
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  token                  = data.aws_eks_cluster_auth.this.token
+  token                  = data.aws_eks_cluster_auth.cluster.token
 }
 
 // Helm provider (for Helm charts installs)
@@ -24,7 +20,7 @@ provider "helm" {
   kubernetes {
     host                   = module.eks.cluster_endpoint
     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-    token                  = data.aws_eks_cluster_auth.this.token
+    token                  = data.aws_eks_cluster_auth.cluster.token
   }
 }
 
@@ -33,7 +29,7 @@ provider "flux" {
   kubernetes = {
     host                   = module.eks.cluster_endpoint
     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-    token                  = data.aws_eks_cluster_auth.this.token
+    token                  = data.aws_eks_cluster_auth.cluster.token
   }
 
   // GitHub repo with Flux manifests
