@@ -18,7 +18,6 @@ spec:
       retries: 3
       remediateLastFailure: true
       strategy: rollback
-    failurePolicy: rollback
     cleanupOnFail: true
 
   rollback:
