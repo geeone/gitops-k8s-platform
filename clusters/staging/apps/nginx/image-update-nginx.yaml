@@ -17,7 +17,7 @@ spec:
     commit:
       author:
         name: FluxCD
-        email: flux@example.com
+        email: fluxcd@users.noreply.github.com
       messageTemplate: |-
         ci(flux): auto-update nginx image {{ .Updated.Images.0.OldTag }} -> {{ .Updated.Images.0.NewTag }}
     push:
