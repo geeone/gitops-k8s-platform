@@ -37,7 +37,7 @@ variable "public_subnets" {
 variable "node_instance_type" {
   type        = string
   description = "Instance type for EKS managed node group"
-  default     = "t3.small"
+  default     = "t3.medium"
 }
 
 variable "node_min_size" {
