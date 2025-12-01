@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: nginx-app
   labels:
-    app: nginx-app
+    app: nginx
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: nginx-app
+      app: nginx
   template:
     metadata:
       labels:
-        app: nginx-app
+        app: nginx
     spec:
       containers:
-        - name: nginx
+        - name: nginx-container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:

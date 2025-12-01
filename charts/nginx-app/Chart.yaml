@@ -1,5 +1,5 @@
 apiVersion: v2
-name: nginx-app
+name: nginx
 description: NGINX application Helm chart
 type: application
 version: 0.1.0

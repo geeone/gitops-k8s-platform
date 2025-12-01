@@ -1,11 +1,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: nginx-app
+  name: nginx
   namespace: flux-system
 spec:
   interval: 5m
-  targetNamespace: nginx-app
+  targetNamespace: staging
   install:
     createNamespace: true
   chart:
