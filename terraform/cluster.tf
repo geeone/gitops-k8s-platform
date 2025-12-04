@@ -1,3 +1,19 @@
+locals {
+  # Define availability zones
+  azs = slice(data.aws_availability_zones.available.names, 0, 3)
+
+  # Match AZs length
+  private_subnets = slice(var.private_subnets, 0, length(local.azs))
+  public_subnets  = slice(var.public_subnets, 0, length(local.azs))
+
+  # Tags definition
+  default_tags = {
+    Project     = var.project_name
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+  }
+}
+
 // Fetch available AZ in the region
 data "aws_availability_zones" "available" {
   state = "available"
@@ -11,15 +27,20 @@ module "vpc" {
   name = "${var.project_name}-vpc"
   cidr = var.vpc_cidr
 
-  azs             = slice(data.aws_availability_zones.available.names, 0, 3)
-  private_subnets = var.private_subnets
-  public_subnets  = var.public_subnets
+  azs             = local.azs
+  private_subnets = local.private_subnets
+  public_subnets  = local.public_subnets
 
   enable_nat_gateway = true
   single_nat_gateway = true
 
   enable_dns_support   = true
   enable_dns_hostnames = true
+
+  tags = merge(
+    local.default_tags,
+    { Name = "${var.project_name}-vpc" }
+  )
 }
 
 // EKS cluster
@@ -69,6 +90,16 @@ module "eks" {
       desired_size = var.node_desired_size
 
       capacity_type = "SPOT" // cost-saving; use ON_DEMAND in prod
+
+      tags = merge(
+        local.default_tags,
+        { Name = "${var.project_name}-node" }
+      )
     }
   }
+
+  tags = merge(
+    local.default_tags,
+    { Name = "${var.project_name}-cluster" }
+  )
 }

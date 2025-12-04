@@ -10,6 +10,12 @@ variable "project_name" {
   default     = "gitops-eks"
 }
 
+variable "environment" {
+  description = "Deployment environment (e.g., dev, staging, prod)"
+  type        = string
+  default     = "staging"
+}
+
 variable "eks_version" {
   type        = string
   description = "Kubernetes version for EKS"
